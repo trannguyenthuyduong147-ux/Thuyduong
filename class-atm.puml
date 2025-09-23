@@ -1,0 +1,64 @@
+@startuml
+title ATM Class Diagram
+
+class ATM {
+    - atmId : int
+    - location : String
+    - cashLevel : double
+    + authenticate(card:Card, pin:String) : boolean
+    + withdraw(card:Card, amount:double) : Transaction
+    + deposit(card:Card, amount:double) : Transaction
+    + transfer(from:Account, to:Account, amount:double) : Transaction
+}
+
+class Card {
+    - cardNo : String
+    - pinHash : String
+    - status : String
+    + validatePin(pin:String) : boolean
+    + isActive() : boolean
+}
+
+class Account {
+    - accountNo : String
+    - balance : double
+    + debit(amount:double) : boolean
+    + credit(amount:double) : boolean
+    + getBalance() : double
+    + checkSufficientFunds(amount:double) : boolean
+}
+
+class Transaction {
+    - txId : int
+    - type : String
+    - amount : double
+    - time : DateTime
+    - status : String
+    + getTransactionDetails() : String
+    + updateStatus(status:String) : void
+}
+
+class Bank {
+    - bankCode : String
+    - name : String
+    + verifyAccount(accountNo:String) : boolean
+    + processTransaction(tx:Transaction) : boolean
+}
+
+class Customer {
+    - customerId : String
+    - name : String
+    - phone : String
+    + getName() : String
+}
+
+' Relationships
+ATM "1" --> "0..*" Transaction : creates
+ATM "1" --> "0..*" Card : uses
+Card "1" --> "1..*" Account : accesses
+Account "1" --> "0..*" Transaction : generates
+Customer "1" --> "1..*" Card : owns
+Customer "1" --> "1..*" Account : has
+Bank "1" --> "1..*" Account : manages
+
+@enduml

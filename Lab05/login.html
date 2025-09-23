@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Login System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="atm-container">
+        <div class="atm-screen">
+            <div class="bank-logo">
+                <h1>VIET BANK</h1>
+                <p>Automatic Teller Machine</p>
+            </div>
+            
+            <div class="login-form" id="loginForm">
+                <h2>Chào mừng đến với ATM</h2>
+                
+                <div class="input-group">
+                    <label for="cardNumber">Số thẻ:</label>
+                    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                    <span class="error-message" id="cardError"></span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="pinNumber">Mã PIN:</label>
+                    <input type="password" id="pinNumber" placeholder="****" maxlength="4">
+                    <span class="error-message" id="pinError"></span>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" onclick="handleLogin()">Đăng nhập</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Xóa</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelTransaction()">Hủy</button>
+                </div>
+                
+                <div class="status-message" id="statusMessage"></div>
+            </div>
+            
+            <div class="main-menu hidden" id="mainMenu">
+                <h2>Chọn giao dịch</h2>
+                <div class="menu-buttons">
+                    <button class="menu-btn" onclick="selectTransaction('withdraw')">
+                        <span>💰</span> Rút tiền
+                    </button>
+                    <button class="menu-btn" onclick="selectTransaction('deposit')">
+                        <span>💳</span> Nộp tiền
+                    </button>
+                    <button class="menu-btn" onclick="selectTransaction('balance')">
+                        <span>📊</span> Kiểm tra số dư
+                    </button>
+                    <button class="menu-btn" onclick="selectTransaction('transfer')">
+                        <span>🔄</span> Chuyển khoản
+                    </button>
+                    <button class="menu-btn" onclick="selectTransaction('changepin')">
+                        <span>🔐</span> Đổi PIN
+                    </button>
+                    <button class="menu-btn" onclick="logout()">
+                        <span>🚪</span> Thoát
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="atm-keypad">
+            <div class="keypad-grid">
+                <button class="key-btn" onclick="addDigit('1')">1</button>
+                <button class="key-btn" onclick="addDigit('2')">2</button>
+                <button class="key-btn" onclick="addDigit('3')">3</button>
+                <button class="key-btn" onclick="addDigit('4')">4</button>
+                <button class="key-btn" onclick="addDigit('5')">5</button>
+                <button class="key-btn" onclick="addDigit('6')">6</button>
+                <button class="key-btn" onclick="addDigit('7')">7</button>
+                <button class="key-btn" onclick="addDigit('8')">8</button>
+                <button class="key-btn" onclick="addDigit('9')">9</button>
+                <button class="key-btn" onclick="clearDigit()">Xóa</button>
+                <button class="key-btn" onclick="addDigit('0')">0</button>
+                <button class="key-btn" onclick="confirmInput()">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="login.js"></script>
+</body>
+</html>

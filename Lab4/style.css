@@ -1,0 +1,217 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: "Saira", sans-serif;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: rgb(177, 167, 167);
+}
+
+.login-box {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background: gray;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box:before{
+    position: absolute;
+    content: "";
+    width: 400px;
+    height: 450px;
+    border-radius: 20px;
+    inset: 0;
+    box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff;
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.login-box:before{
+    box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff,
+                inset 8px 8px 20px #332222,
+                inset -8px -8px 20px #fff;
+                
+}
+
+h2{
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+.input-box{
+    position: relative;
+    width: 310px;
+    margin: 30px 0;
+}
+
+.input-box:before{
+    position: absolute;
+    content: "";
+    width: 310px;
+    border-radius: 20px;
+    inset: 0;
+    box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff;
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.input-box:hover:before {
+     box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff,
+                inset 8px 8px 20px #332222,
+                inset -8px -8px 20px #fff;
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+
+@keyframes slideOut{
+   0% {
+        left: 5px;
+   }
+   100% {
+        left: 10px;
+        top: -7px;
+        scale: 0.7;
+   }
+}
+
+.input-box input:focus+label,
+.input-box input:not(:placeholder-shown)+label
+{
+    animation: slideOut 0.4s ease forwards;
+}
+
+.input-box input{
+    width: 100%;
+    height: 50px;
+    background: gray; 
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #fff;
+    padding: 0 8px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 57px;
+}
+
+.remember-forgot{
+    margin: -15px 0 15px;
+    font-size: 0.9em;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease-out;
+}
+
+.remember-forgot:hover a {
+    text-decoration: underline;
+    transform: scale(1.05);
+}
+
+button {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: gray;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #000;
+    font-weight: 500;
+    color: white;
+}
+
+button:before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    inset: 0;
+    border-radius: 40px;
+     box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff;
+    filter: blur(5px);
+
+}
+
+button:hover:before {
+      box-shadow: 8px 8px 20px #332222,
+                -8px -8px 20px #fff,
+                inset 8px 8px 20px #332222,
+                inset -8px -8px 20px #fff;
+    
+                
+}
+
+
+button:hover>label {
+    color: #332222;
+}
+
+.register-link{
+    font-size: 0.9em;
+    color: #fff;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3 ease-out;
+
+    
+}
+
+.register-link p {
+    transition: 0.3 ease-out;
+}
+.register-link:hover p{
+    transform: scale(1.05);
+}
+
+.register-link:hover a {
+    text-decoration: underline;
+}
+

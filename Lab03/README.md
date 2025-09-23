@@ -39,7 +39,3 @@ Hệ thống ATM (Automated Teller Machine) cho phép khách hàng thực hiện
 **Sinh viên:** Trần Nguyễn Thùy Dương
 **Lớp:** D23CQPTTK01-N
 **MSSV:** N23DCPT073
----
-**Sinh viên:** [Tên em]  
-**Lớp:** [Lớp học]  
-**Ngày:** [Ngày làm bài]

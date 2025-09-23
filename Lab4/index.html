@@ -1,346 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Đăng Nhập</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-header h2 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .login-header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-
-        .form-group input.error {
-            border-color: #ff4757;
-            background: rgba(255, 71, 87, 0.05);
-        }
-
-        .error-message {
-            color: #ff4757;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
-            transform: scale(1.2);
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            color: #666;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        .btn-cancel {
-            background: #f8f9fa;
-            color: #666;
-            border: 2px solid #e0e0e0;
-        }
-
-        .btn-cancel:hover {
-            background: #e9ecef;
-            border-color: #ced4da;
-            transform: translateY(-2px);
-        }
-
-        .success-message {
-            background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-            border: 1px solid rgba(40, 167, 69, 0.3);
-            display: none;
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            .button-group {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <title>Form</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h2>Đăng Nhập</h2>
-            <p>Vui lòng nhập thông tin đăng nhập</p>
-        </div>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">Tên đăng nhập</label>
-                <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập">
-                <div class="error-message" id="usernameError"></div>
+    <div class="login-box">
+        <form action="">
+            <h2>Login</h2>
+            <div class="input-box">
+                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" required placeholder=" ">
+                <label for="">Email</label>
             </div>
-            
-            <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu">
-                <div class="error-message" id="passwordError"></div>
+            <div class="input-box">
+                <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" required placeholder=" ">
+                <label for="">Password</label>
             </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember">Ghi nhớ đăng nhập</label>
+            <div class="remember-forgot">
+                <label><input type="checkbox" >Remember me</label>
+                <a href="#!">Forgot Password</a>
             </div>
-            
-            <div class="button-group">
-                <button type="submit" class="btn btn-login" id="loginBtn">Đăng Nhập</button>
-                <button type="button" class="btn btn-cancel" id="cancelBtn">Hủy</button>
-            </div>
-            
-            <div class="success-message" id="successMessage">
-                Đăng nhập thành công!
+            <button type="submit"><label for="">Login</label></button>
+            <div class="register-link">
+                <p>Don't have an account? <a href="#!">Register</a></p>
             </div>
         </form>
     </div>
-
-    <script>
-         
-        const loginForm = document.getElementById('loginForm');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const rememberCheckbox = document.getElementById('remember');
-        const loginBtn = document.getElementById('loginBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const successMessage = document.getElementById('successMessage');
-
-         
-        function showError(inputElement, errorMessage) {
-            const errorElement = document.getElementById(inputElement.id + 'Error');
-            errorElement.textContent = errorMessage;
-            errorElement.style.display = 'block';
-            inputElement.classList.add('error');
-        }
-
-        
-        function hideError(inputElement) {
-            const errorElement = document.getElementById(inputElement.id + 'Error');
-            errorElement.style.display = 'none';
-            inputElement.classList.remove('error');
-        }
-
-         
-        function validateUsername(username) {
-            if (!username) {
-                return 'Vui lòng nhập tên đăng nhập';
-            }
-            if (username.length < 3) {
-                return 'Tên đăng nhập phải có ít nhất 3 ký tự';
-            }
-            if (username.length > 20) {
-                return 'Tên đăng nhập không được quá 20 ký tự';
-            }
-            return '';
-        }
-
-         
-        function validatePassword(password) {
-            if (!password) {
-                return 'Vui lòng nhập mật khẩu';
-            }
-            if (password.length < 6) {
-                return 'Mật khẩu phải có ít nhất 6 ký tự';
-            }
-            if (password.length > 50) {
-                return 'Mật khẩu không được quá 50 ký tự';
-            }
-            return '';
-        }
-
-        
-        usernameInput.addEventListener('input', function() {
-            hideError(this);
-        });
-
-        passwordInput.addEventListener('input', function() {
-            hideError(this);
-        });
-
-         
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Ngăn form submit mặc định
-            
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value;
-            const remember = rememberCheckbox.checked;
-            
-            let hasError = false;
-
-            
-            const usernameError = validateUsername(username);
-            if (usernameError) {
-                showError(usernameInput, usernameError);
-                hasError = true;
-            }
-
-             
-            const passwordError = validatePassword(password);
-            if (passwordError) {
-                showError(passwordInput, passwordError);
-                hasError = true;
-            }
-
-            
-            if (!hasError) {
-                 
-                successMessage.style.display = 'block';
-                
-                 
-                if (remember) {
-                    console.log('Đã lưu thông tin đăng nhập');
-                }
-                
-                
-                console.log('Thông tin đăng nhập:');
-                console.log('Username:', username);
-                console.log('Password:', password);
-                console.log('Remember:', remember);
-                
-                 
-                setTimeout(function() {
-                    successMessage.style.display = 'none';
-                }, 3000);
-            }
-        });
-
-        
-        cancelBtn.addEventListener('click', function() {
-            
-            loginForm.reset();
-            
-            
-            hideError(usernameInput);
-            hideError(passwordInput);
-            
-            
-            successMessage.style.display = 'none';
-            
-            console.log('Form đã được reset');
-        });
-
-        
-        window.addEventListener('load', function() {
-            usernameInput.focus();
-        });
-    </script>
 </body>
 </html>

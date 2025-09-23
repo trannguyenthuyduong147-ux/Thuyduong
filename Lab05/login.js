@@ -1,12 +1,9 @@
-// Global variables
 let currentCardNumber = '';
 let currentPin = '';
 let loginAttempts = 0;
 let maxAttempts = 3;
 let currentInput = '';
 let activeField = null;
-
-// Mock database
 const mockDatabase = {
     '1234567812345678': {
         pin: '1234',
@@ -22,22 +19,19 @@ const mockDatabase = {
     }
 };
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     clearForm();
     
-    // Add event listeners
     document.getElementById('cardNumber').addEventListener('focus', () => setActiveField('card'));
     document.getElementById('pinNumber').addEventListener('focus', () => setActiveField('pin'));
-    
-    // Format card number input
+  
     document.getElementById('cardNumber').addEventListener('input', formatCardNumber);
     
-    // Restrict PIN input to numbers only
+  
     document.getElementById('pinNumber').addEventListener('input', restrictPinInput);
 });
 
-// Set active field for keypad input
+
 function setActiveField(field) {
     activeField = field;
     const cardInput = document.getElementById('cardNumber');
@@ -52,19 +46,19 @@ function setActiveField(field) {
     }
 }
 
-// Format card number with spaces
+
 function formatCardNumber(e) {
     let value = e.target.value.replace(/\s/g, '');
     let formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ');
     e.target.value = formattedValue;
 }
 
-// Restrict PIN to numbers only
+
 function restrictPinInput(e) {
     e.target.value = e.target.value.replace(/\D/g, '');
 }
 
-// Keypad functions
+
 function addDigit(digit) {
     if (activeField === 'card') {
         const cardInput = document.getElementById('cardNumber');
@@ -99,7 +93,7 @@ function confirmInput() {
     }
 }
 
-// Validation functions
+
 function validateCardNumber(cardNumber) {
     const cleanCard = cardNumber.replace(/\s/g, '');
     
@@ -126,15 +120,15 @@ function validatePin(pin) {
     return { valid: true, message: '' };
 }
 
-// Main login function
+
 function handleLogin() {
     const cardNumber = document.getElementById('cardNumber').value;
     const pin = document.getElementById('pinNumber').value;
     
-    // Clear previous error messages
+    
     clearErrors();
     
-    // Validate inputs
+   
     const cardValidation = validateCardNumber(cardNumber);
     const pinValidation = validatePin(pin);
     
@@ -148,7 +142,7 @@ function handleLogin() {
         return;
     }
     
-    // Check against mock database
+   
     const cleanCard = cardNumber.replace(/\s/g, '');
     
     if (!mockDatabase[cleanCard]) {
@@ -178,7 +172,7 @@ function handleLogin() {
         return;
     }
     
-    // Login successful
+  
     currentCardNumber = cleanCard;
     currentPin = pin;
     loginAttempts = 0;
@@ -190,13 +184,13 @@ function handleLogin() {
     }, 1500);
 }
 
-// Show main menu
+
 function showMainMenu() {
     document.getElementById('loginForm').classList.add('hidden');
     document.getElementById('mainMenu').classList.remove('hidden');
 }
 
-// Transaction selection
+
 function selectTransaction(type) {
     const cardData = mockDatabase[currentCardNumber];
     let message = '';
@@ -222,7 +216,7 @@ function selectTransaction(type) {
     alert(message);
 }
 
-// Logout function
+
 function logout() {
     if (confirm('Bạn có chắc muốn thoát?')) {
         document.getElementById('mainMenu').classList.add('hidden');
@@ -231,7 +225,7 @@ function logout() {
     }
 }
 
-// Utility functions
+
 function showError(elementId, message) {
     document.getElementById(elementId).textContent = message;
 }
@@ -272,7 +266,7 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// Handle keyboard input
+
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         if (document.getElementById('loginForm').classList.contains('hidden')) {

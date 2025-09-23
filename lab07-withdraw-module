@@ -1,33 +1,15 @@
--- Lab 07: ATM Database
-CREATE DATABASE IF NOT EXISTS atm_demo;
-USE atm_demo;
+# Lab 07 – Phát triển Module Rút tiền (Withdraw Module)
+## Mục tiêu
+Xây dựng module **Withdraw** trong hệ thống ATM mô phỏng bằng **Python hoặc Java** kết nối với **MySQL**.
+- Kiểm tra PIN hợp lệ.
+- Kiểm tra số dư tài khoản.
+- Xử lý giao dịch rút tiền an toàn với transaction.
+- Lưu log vào bảng `transactions`.
 
-CREATE TABLE accounts (
-    account_id INT PRIMARY KEY AUTO_INCREMENT,
-    balance DECIMAL(15,2) DEFAULT 0
-);
-
-CREATE TABLE cards (
-    card_no VARCHAR(16) PRIMARY KEY,
-    account_id INT,
-    pin_hash VARCHAR(64),
-    FOREIGN KEY (account_id) REFERENCES accounts(account_id)
-);
-
-CREATE TABLE transactions (
-    tx_id INT PRIMARY KEY AUTO_INCREMENT,
-    account_id INT,
-    card_no VARCHAR(16),
-    atm_id INT,
-    tx_type VARCHAR(20),
-    amount DECIMAL(15,2),
-    balance_after DECIMAL(15,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO accounts (balance) VALUES (1000000);
-
-INSERT INTO cards (card_no, account_id, pin_hash) VALUES 
-('1111222233334444', 1, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4');
-
-SELECT 'Database setup complete!' as status;
+##  Công cụ
+- Ngôn ngữ: **Python 3.x** (hoặc Java).
+- CSDL: **MySQL 8.x**.
+- Thư viện Python: `mysql-connector-python`, `hashlib`.
+Cài đặt thư viện:
+```bash
+pip install mysql-connector-python

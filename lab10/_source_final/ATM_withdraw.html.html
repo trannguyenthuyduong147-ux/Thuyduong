@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ATM Login + Rút tiền (Demo)</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --accent:#4b7bec;
+      --danger:#e74c3c;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:linear-gradient(180deg,var(--bg),#a3467e 60%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:100%;
+      max-width:420px;
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(20,20,50,0.08);
+      padding:28px;
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:20px;
+      color:#0f172a;
+      text-align:center;
+    }
+    p.lead{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
+    form .field{margin-bottom:14px;}
+    label{display:block;font-size:13px;color:#101828;margin-bottom:6px;}
+    input[type="text"],input[type="password"],input[type="number"]{
+      width:100%;padding:10px 12px;border-radius:8px;
+      border:1px solid #d1d5db;font-size:14px;outline:none;
+      transition:box-shadow .12s,border-color .12s;background:#fbfdff;
+    }
+    input:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 4px rgba(75,123,236,0.08);
+    }
+    .row{display:flex;gap:10px;align-items:center;}
+    .actions{display:flex;gap:8px;margin-top:6px;}
+    button{
+      cursor:pointer;border:0;padding:10px 14px;
+      border-radius:8px;font-weight:600;font-size:14px;
+    }
+    .btn-primary{
+      background:var(--accent);color:white;flex:1;
+      box-shadow:0 6px 18px rgba(75,123,236,0.18);
+    }
+    .btn-outline{
+      background:transparent;color:var(--accent);
+      border:1px solid rgba(75,123,236,0.12);flex:1;
+    }
+    .small{font-size:13px;color:var(--muted);}
+    .checkbox{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;color:var(--muted);font-size:13px;}
+    .error{color:var(--danger);font-size:13px;margin-top:6px;}
+    .helper{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:var(--muted);}
+    .show-pass{position:relative;}
+    .toggle-pass{
+      position:absolute;right:8px;top:50%;transform:translateY(-50%);
+      background:transparent;border:0;padding:6px;cursor:pointer;color:var(--muted);font-size:13px;
+    }
+    .footer-note{margin-top:14px;font-size:13px;color:var(--muted);text-align:center;}
+    .success{
+      color:#0f5132;background:#e6f4ea;padding:8px 10px;
+      border-radius:8px;font-size:14px;margin-top:10px;text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="loginTitle">
+    <h1 id="loginTitle">Đăng nhập – Xác thực PIN – Rút tiền</h1>
+
+    <form id="loginForm" novalidate>
+      <!-- Bước 1: Đăng nhập -->
+      <div id="step-login">
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Nhập tên đăng nhập" required>
+          <div id="err-username" class="error"></div>
+        </div>
+        <div class="field show-pass">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" required>
+          <button type="button" class="toggle-pass" id="togglePass" aria-pressed="false" aria-label="Hiện mật khẩu">Hiện</button>
+          <div id="err-password" class="error"></div>
+        </div>
+        <div class="row" style="justify-content:space-between;">
+          <label class="checkbox" for="remember">
+            <input id="remember" name="remember" type="checkbox" style="width:16px;height:16px;"> Remember me
+          </label>
+          <a href="#" class="small" onclick="alert('Demo: tính năng quên mật khẩu chưa triển khai.')">Quên mật khẩu?</a>
+        </div>
+        <div class="actions" style="margin-top:14px;">
+          <button type="button" id="btnCancel" class="btn-outline">Cancel</button>
+          <button type="submit" id="btnLogin" class="btn-primary">Login</button>
+        </div>
+      </div>
+
+      <!-- Bước 2: Xác thực PIN -->
+      <div id="step-pin" style="display:none;">
+        <div class="field">
+          <label for="pin">Nhập mã PIN</label>
+          <input id="pin" name="pin" type="password" maxlength="6" placeholder="1234" required>
+          <div id="err-pin" class="error"></div>
+        </div>
+        <div class="actions">
+          <button type="button" id="btnPinCancel" class="btn-outline">Hủy</button>
+          <button type="button" id="btnPinOK" class="btn-primary">Xác thực PIN</button>
+        </div>
+      </div>
+
+      <!-- Bước 3: Rút tiền -->
+      <div id="step-withdraw" style="display:none;">
+        <div class="field">
+          <label for="amount">Nhập số tiền cần rút (VND)</label>
+          <input id="amount" name="amount" type="number" min="1000" step="1000" placeholder="..." required>
+          <div id="err-amount" class="error"></div>
+        </div>
+        <div class="actions">
+          <button type="button" id="btnWithdrawCancel" class="btn-outline">Hủy</button>
+          <button type="button" id="btnWithdrawOK" class="btn-primary">Rút tiền</button>
+        </div>
+      </div>
+
+      <div id="formMessage" aria-live="polite"></div>
+    </form>
+  </main>
+
+<script>
+const form = document.getElementById('loginForm');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const rememberInput = document.getElementById('remember');
+const errUser = document.getElementById('err-username');
+const errPass = document.getElementById('err-password');
+const formMessage = document.getElementById('formMessage');
+const togglePassBtn = document.getElementById('togglePass');
+const btnCancel = document.getElementById('btnCancel');
+
+const stepLogin = document.getElementById('step-login');
+const stepPin = document.getElementById('step-pin');
+const pinInput = document.getElementById('pin');
+const errPin = document.getElementById('err-pin');
+const btnPinCancel = document.getElementById('btnPinCancel');
+const btnPinOK = document.getElementById('btnPinOK');
+
+const stepWithdraw = document.getElementById('step-withdraw');
+const amountInput = document.getElementById('amount');
+const errAmount = document.getElementById('err-amount');
+const btnWithdrawCancel = document.getElementById('btnWithdrawCancel');
+const btnWithdrawOK = document.getElementById('btnWithdrawOK');
+
+// Lấy user remember
+window.addEventListener('DOMContentLoaded', () => {
+  const savedUsername = localStorage.getItem('savedUsername');
+  if (savedUsername) {
+    usernameInput.value = savedUsername;
+    rememberInput.checked = true;
+  }
+});
+
+// Toggle pass
+togglePassBtn.addEventListener('click', () => {
+  const shown = passwordInput.type === 'text';
+  passwordInput.type = shown ? 'password' : 'text';
+  togglePassBtn.textContent = shown ? 'Hiện' : 'Ẩn';
+  togglePassBtn.setAttribute('aria-pressed', (!shown).toString());
+  passwordInput.focus();
+});
+
+// Reset form
+function resetAll(){
+  usernameInput.value = '';
+  passwordInput.value = '';
+  rememberInput.checked = false;
+  pinInput.value = '';
+  amountInput.value = '';
+  errUser.textContent = '';
+  errPass.textContent = '';
+  errPin.textContent = '';
+  errAmount.textContent = '';
+  formMessage.textContent = '';
+  stepLogin.style.display = 'block';
+  stepPin.style.display = 'none';
+  stepWithdraw.style.display = 'none';
+  localStorage.removeItem('savedUsername');
+  usernameInput.focus();
+}
+btnCancel.addEventListener('click', resetAll);
+btnPinCancel.addEventListener('click', resetAll);
+btnWithdrawCancel.addEventListener('click', resetAll);
+
+// Validate login
+function validateLogin(){
+  let ok = true;
+  errUser.textContent = '';
+  errPass.textContent = '';
+  formMessage.textContent = '';
+  const user = usernameInput.value.trim();
+  const pass = passwordInput.value;
+  if(!user){errUser.textContent='Vui lòng nhập username.';ok=false;}
+  else if(user.length<3){errUser.textContent='Username phải >=3 ký tự.';ok=false;}
+  if(!pass){errPass.textContent='Vui lòng nhập password.';ok=false;}
+  else if(pass.length<6){errPass.textContent='Password phải >=6 ký tự.';ok=false;}
+  else if(!/\d/.test(pass)){errPass.textContent='Password cần chứa ít nhất 1 chữ số.';ok=false;}
+  return ok;
+}
+
+// Submit login
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  if(!validateLogin())return;
+
+  if(rememberInput.checked) localStorage.setItem('savedUsername',usernameInput.value.trim());
+  else localStorage.removeItem('savedUsername');
+
+  const demoUsername='student';
+  const demoPassword='pass123';
+  formMessage.innerHTML='<div class="success">Đang xác thực...</div>';
+
+  setTimeout(()=>{
+    if(usernameInput.value.trim()===demoUsername && passwordInput.value===demoPassword){
+      formMessage.innerHTML='';
+      stepLogin.style.display='none';
+      stepPin.style.display='block';
+      pinInput.focus();
+    }else{
+      formMessage.innerHTML='<div class="error">Tên đăng nhập hoặc mật khẩu không đúng (demo).</div>';
+    }
+  },700);
+});
+
+// Xác thực PIN
+btnPinOK.addEventListener('click',()=>{
+  errPin.textContent='';
+  const pin=pinInput.value.trim();
+  if(!pin){errPin.textContent='Vui lòng nhập mã PIN.';return;}
+  formMessage.innerHTML='<div class="success">Đang xác thực PIN...</div>';
+  setTimeout(()=>{
+    if(pin==='1234'){ // demo
+      formMessage.innerHTML='';
+      stepPin.style.display='none';
+      stepWithdraw.style.display='block';
+      amountInput.focus();
+    }else{
+      errPin.textContent='PIN không đúng (demo).';
+      formMessage.textContent='';
+    }
+  },500);
+});
+
+// Rút tiền
+btnWithdrawOK.addEventListener('click',()=>{
+  errAmount.textContent='';
+  const amount=parseFloat(amountInput.value);
+  if(!amount || amount<=0){
+    errAmount.textContent='Vui lòng nhập số tiền hợp lệ.';
+    return;
+  }
+  formMessage.innerHTML='<div class="success">Đang xử lý giao dịch...</div>';
+
+  // Gọi API Flask (chạy ở backend)
+  fetch('http://127.0.0.1:5000/api/withdraw',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      card_no:'1111-2222-3333',
+      pin:pinInput.value.trim(),
+      amount:amount
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.success){
+      formMessage.innerHTML=`
+        <div class="success">
+          ✅ Đã rút: ${data.withdrawn.toLocaleString()} VND<br>
+          💰 Số dư: ${data.balance_after.toLocaleString()} VND
+        </div>`;
+      amountInput.value='';
+    }else{
+      formMessage.innerHTML=`<div class="error">${data.message}</div>`;
+    }
+  })
+  .catch(()=>{formMessage.innerHTML='<div class="error">Lỗi kết nối server.</div>';});
+});
+</script>
+</body>
+</html>

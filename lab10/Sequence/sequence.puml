@@ -1,0 +1,23 @@
+@startuml
+actor KhachHang
+participant ATM
+participant BankServer
+
+KhachHang -> ATM : Đưa thẻ vào
+ATM -> KhachHang : Yêu cầu nhập PIN
+KhachHang -> ATM : Nhập PIN
+ATM -> BankServer : Gửi PIN để xác thực
+BankServer --> ATM : Kết quả xác thực
+
+alt PIN hợp lệ
+    ATM -> KhachHang : Hiển thị menu
+    KhachHang -> ATM : Chọn "Rút tiền" + nhập số tiền
+    ATM -> BankServer : Yêu cầu rút tiền
+    BankServer --> ATM : Xác nhận giao dịch
+    ATM -> KhachHang : Xuất tiền mặt
+    ATM -> KhachHang : In biên lai (tùy chọn)
+else PIN sai
+    ATM -> KhachHang : Thông báo lỗi
+end
+
+@enduml

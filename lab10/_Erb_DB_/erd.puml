@@ -1,0 +1,35 @@
+@startuml
+!theme plain
+' Bắt đầu vẽ ERD
+entity "accounts" as accounts {
+    + account_id : INT <<PK>>
+    --
+    account_no : VARCHAR(20) <<UQ>>
+    balance : DOUBLE
+}
+
+entity "cards" as cards {
+    + card_no : VARCHAR(20) <<PK>>
+    --
+    account_id : INT <<FK>>
+    pin_hash : CHAR(64)
+    status : VARCHAR(20)
+}
+
+entity "transactions" as tx {
+    + tx_id : INT <<PK>>
+    --
+    account_id : INT <<FK>>
+    card_no : VARCHAR(20)
+    atm_id : INT
+    tx_type : VARCHAR(20)
+    amount : DOUBLE
+    balance_after : DOUBLE
+    tx_time : TIMESTAMP
+}
+
+' Quan hệ
+accounts ||--o{ cards : "1:N"
+accounts ||--o{ tx : "1:N"
+cards ||--o{ tx : "1:N (qua card_no)"
+@enduml

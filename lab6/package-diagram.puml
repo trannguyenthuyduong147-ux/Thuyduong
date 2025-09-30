@@ -1,0 +1,39 @@
+@startuml
+' ===========================
+' Package Diagram for ATM
+' ===========================
+
+package "UI" {
+  class ATMScreen
+  class Keypad
+  class CardReaderUI
+}
+
+package "Controller" {
+  class ATMController
+}
+
+package "BankService" {
+  class Account
+  class Transaction
+  class AuthenticationService
+}
+
+package "Hardware" {
+  class ATM
+  class CardReader
+  class CashDispenser
+  class ReceiptPrinter
+}
+
+' --- Dependencies ---
+UI --> Controller
+Controller --> BankService
+Controller --> Hardware
+BankService --> Account
+BankService --> Transaction
+Hardware --> CardReader
+Hardware --> CashDispenser
+Hardware --> ReceiptPrinter
+
+@enduml

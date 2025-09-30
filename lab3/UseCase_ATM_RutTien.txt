@@ -1,0 +1,54 @@
+# USE CASE DESCRIPTION - HỆ THỐNG RÚT TIỀN ATM
+
+## USE CASE: RÚT TIỀN
+
+**Use Case ID:** UC_ATM001  
+**Use Case Name:** Rút tiền từ ATM  
+**Actor:** Khách hàng, Hệ thống ATM, Hệ thống Ngân hàng  
+**Description:** Khách hàng thực hiện giao dịch rút tiền mặt thông qua máy ATM kết nối với hệ thống ngân hàng.
+
+### Preconditions (Điều kiện tiên quyết):
+- Khách hàng có thẻ ATM hợp lệ (còn hiệu lực).  
+- Khách hàng có tài khoản ngân hàng liên kết với thẻ.  
+- Máy ATM hoạt động bình thường, có đủ tiền mặt để giao dịch.  
+
+### Main Flow (Luồng chính):
+1. Khách hàng đưa thẻ ATM vào máy.  
+2. Hệ thống ATM yêu cầu nhập PIN.  
+3. Khách hàng nhập PIN.  
+4. ATM gửi thông tin xác thực PIN đến hệ thống ngân hàng.  
+5. Hệ thống ngân hàng xác thực và trả kết quả.  
+6. ATM hiển thị menu giao dịch.  
+7. Khách hàng chọn chức năng "Rút tiền" và nhập số tiền cần rút.  
+8. ATM gửi yêu cầu kiểm tra số dư đến hệ thống ngân hàng.  
+9. Hệ thống ngân hàng trả kết quả kiểm tra số dư.  
+10. Nếu số dư đủ, ATM gửi yêu cầu trừ tiền đến hệ thống ngân hàng.  
+11. Hệ thống ngân hàng xác nhận giao dịch.  
+12. ATM xuất tiền mặt cho khách hàng.  
+13. ATM hỏi khách hàng có muốn in biên lai hay không (tùy chọn).  
+14. ATM hoàn tất giao dịch và đăng xuất thẻ.  
+
+### Alternative Flow (Luồng thay thế):
+**A1. PIN sai:**  
+- A1.1. Hệ thống ATM thông báo nhập sai PIN.  
+- A1.2. Khách hàng được phép nhập lại tối đa 3 lần.  
+- A1.3. Nếu nhập sai quá số lần quy định, thẻ bị khóa/tạm giữ.  
+
+**A2. Số dư không đủ:**  
+- A2.1. Hệ thống ngân hàng trả thông báo "Số dư không đủ".  
+- A2.2. ATM hiển thị thông báo lỗi cho khách hàng.  
+- A2.3. Giao dịch kết thúc.  
+
+**A3. ATM hết tiền:**  
+- A3.1. ATM thông báo không đủ tiền mặt để chi trả.  
+- A3.2. Giao dịch kết thúc.  
+
+### Postconditions (Điều kiện sau):  
+- Nếu giao dịch thành công:  
+  + Số dư tài khoản khách hàng giảm đi tương ứng.  
+  + Hệ thống ngân hàng cập nhật giao dịch.  
+  + Khách hàng nhận được tiền mặt (và biên lai nếu có).  
+
+- Nếu giao dịch thất bại:  
+  + Tài khoản khách hàng không thay đổi.  
+  + Hệ thống ghi nhận log lỗi giao dịch.  
